@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Каталог Murap</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="header">
+    <h1>Каталог товаров</h1>
+  </div>
+
+  <div class="filters">
+    <select id="categoryFilter">
+      <option value="all">Все категории</option>
+      <option value="хозтовары">Хозтовары</option>
+      <option value="сантехника">Сантехника</option>
+      <option value="электрика">Электрика</option>
+    </select>
+  </div>
+
+  <div id="product-list" class="product-list"></div>
+
+  <script src="demo-data.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
