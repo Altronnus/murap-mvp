@@ -2,27 +2,66 @@
 <html lang="ru">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Каталог Murap</title>
-  <link rel="stylesheet" href="style.css" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Магазин</title>
+  <style>
+    /* Простейшие стили для карточек */
+    .card { border: 1px solid #ddd; padding: 10px; margin: 10px; width: 300px; }
+    .card img { width: 100%; height: auto; }
+    .card-body { padding: 5px; }
+    .card-title { font-weight: bold; margin-bottom: 5px; }
+    .card-price { color: green; margin-bottom: 10px; }
+    .btn { padding: 5px 10px; cursor: pointer; }
+  </style>
 </head>
 <body>
-  <div class="header">
-    <h1>Каталог товаров</h1>
-  </div>
+  <select id="categoryFilter">
+    <option value="all">Все категории</option>
+    <option value="хозтовары">хозтовары</option>
+    <option value="сантехника">сантехника</option>
+    <option value="электрика">электрика</option>
+  </select>
 
-  <div class="filters">
-    <select id="categoryFilter">
-      <option value="all">Все категории</option>
-      <option value="хозтовары">Хозтовары</option>
-      <option value="сантехника">Сантехника</option>
-      <option value="электрика">Электрика</option>
-    </select>
-  </div>
+  <div id="product-list"></div>
 
-  <div id="product-list" class="product-list"></div>
+  <script>
+    const demoProducts = [
+      { id: 1, name: "Таз пластиковый", category: "хозтовары", image: "https://via.placeholder.com/300x200.png?text=Таз", opt_price: 100, retail_price: 120 },
+      { id: 2, name: "Кран водяной", category: "сантехника", image: "https://via.placeholder.com/300x200.png?text=Кран", opt_price: 150, retail_price: 180 },
+      { id: 3, name: "Удлинитель 5м", category: "электрика", image: "https://via.placeholder.com/300x200.png?text=Удлинитель", opt_price: 200, retail_price: 240 }
+    ];
 
-  <script src="demo-data.js"></script>
-  <script src="script.js"></script>
+    const productList = document.getElementById("product-list");
+    const categoryFilter = document.getElementById("categoryFilter");
+
+    function renderProducts(products) {
+      productList.innerHTML = "";
+      products.forEach((product) => {
+        const card = document.createElement("div");
+        card.className = "card";
+        card.innerHTML = `
+          <img src="${product.image}" alt="${product.name}" />
+          <div class="card-body">
+            <div class="card-title">${product.name}</div>
+            <div class="card-price">Опт: ${product.opt_price} сом<br>Розница: ${product.retail_price} сом</div>
+            <button class="btn">🛒 В корзину</button>
+          </div>
+        `;
+        productList.appendChild(card);
+      });
+    }
+
+    categoryFilter.addEventListener("change", () => {
+      const selected = categoryFilter.value;
+      if (selected === "all") {
+        renderProducts(demoProducts);
+      } else {
+        const filtered = demoProducts.filter(p => p.category === selected);
+        renderProducts(filtered);
+      }
+    });
+
+    renderProducts(demoProducts);
+  </script>
 </body>
 </html>
